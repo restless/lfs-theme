@@ -94,7 +94,7 @@
                     </td>
                     <td class="buttons">
                         <a class="button emphasized"
-                           href="{% url lfs_product product.slug %}"
+                           href="{{ product.get_absolute_url }}"
                            type="submit">
                             {% trans 'Details' %}
                         </a>
