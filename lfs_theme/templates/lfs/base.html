@@ -1,8 +1,4 @@
-{% load i18n %}
-{% load lfs_tags %}
-{% load lfs_theme_tags %}
-{% load lfs_portlets_tags %}
-{% load compress %}
+{% load i18n lfs_tags lfs_theme_tags lfs_portlets_tags compress lfs_modeltranslation_tags %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -92,6 +88,17 @@
                                    value="{% trans 'Go!' %}" />
                         </form>
                     </div>
+
+                    <div class="menu lang">
+                        <form id="locale_switcher" method="POST" action="{% url localeurl_change_locale %}">
+                            {% forlanguages %}
+                                <a href="#"  data-language="{{ translation_language }}" class="language-switch lang-switch-{{ translation_language }} {% if request.LANGUAGE_CODE == translation_language %}current{% endif %}">{{ translation_language }}</a>
+                            {% endforlanguages %}
+                            <input type="hidden" name="locale" value="en" id="locale-switcher-input" />
+                            {% csrf_token %}
+                        </form>
+                    </div>
+
                 {% endblock %}
             </div>
             <div class="container livesearch-wrapper">

@@ -22,6 +22,11 @@
                 <li>
                     <a href="{% url lfs_my_addresses %}">{% trans 'Change addresses' %}</a>
                 </li>
+                {% if uses_modeltranslation %}
+                    <li>
+                        <a href="{% url lfs_preferred_language %}">{% trans 'Preferred language' %}</a>
+                    </li>
+                {% endif %}
             </ul>
         {% endblock %}
     </div>
