@@ -1,0 +1,12 @@
+{% load lfs_modeltranslation_tags %}
+{% if uses_modeltranslation %}
+    <div class="menu lang">
+        <form id="locale_switcher" method="POST" action="{% url localeurl_change_locale %}">
+            {% forlanguages %}
+                <a href="#"  data-language="{{ translation_language }}" class="language-switch lang-switch-{{ translation_language }} {% if request.LANGUAGE_CODE == translation_language %}current{% endif %}">{{ translation_language }}</a>
+            {% endforlanguages %}
+            <input type="hidden" name="locale" value="en" id="locale-switcher-input" />
+            {% csrf_token %}
+        </form>
+    </div>
+{% endif %}
