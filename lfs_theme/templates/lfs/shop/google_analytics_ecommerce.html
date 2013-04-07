@@ -7,7 +7,7 @@
         _gaq.push(['_addTrans',
             "{{ order.id }}",
             "{{ shop.name }}",
-            "{{ order.price|currency:request }}",
+            "{{ order.price|floatformat:2 }}",
             "{{ order.tax }}",
             "{{ order.shipping_price }}",
             "{{ order.invoice_address.city }}",
@@ -21,7 +21,7 @@
                 "{{ item.product_sku }}",
                 "{{ item.product_name }}",
                 "{% if item.product %}{{ item.product.get_category.name }}{% endif %}",
-                "{{ item.product_price_gross|currency:request }}",
+                "{{ item.product_price_gross|floatformat:2 }}",
                 "{{ item.product_amount }}"
             ]);
         {% endfor %}
