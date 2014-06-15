@@ -4,7 +4,7 @@
 <h2 class="padding-top-large">
     {% trans "Voucher code" %}
 </h2>
-<input data="{% url lfs_check_voucher %}"
+<input data="{% url 'lfs_check_voucher' %}"
        type="text"
        id="voucher"
        name="voucher"
@@ -50,29 +50,7 @@
                 </td>
                 <td>
                     {{ cart_item.product.get_name }}
-                    {% for property in cart_item.product.get_variant_properties %}
-                        <div>
-                            {{ property.title }}: {{ property.value }} {{ property.unit|safe }}
-                        </div>
-                    {% endfor %}
-
-                    {% for property in cart_item.product.get_displayed_properties %}
-                        <div>
-                            {{ property.title }}: {{ property.value }} {{ property.unit|safe }}
-                        </div>
-                    {% endfor %}
-
-                    {% if cart_item.product.is_configurable_product %}
-                        {% for property in cart_item.obj.get_properties %}
-                            <div>
-                                {{ property.title }}: {{ property.value }} {{ property.unit|safe }}
-                                {% if property.obj.is_select_field and property.display_price %}
-                                    ({{ property.price|currency:request}})
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-
+                    {% include "lfs/catalog/products/_product_properties.html" with product=cart_item.product configurable_properties=cart_item.obj.get_properties %}
                 </td>
                 <td class="number">
                     {{ cart_item.quantity }}
@@ -153,11 +131,13 @@
             </td>
             <td></td>
             <td class="number">
-                {{ shipping_price|currency:request}}
+                {{ shipping_costs.price_net|currency:request}}
             </td>
-            <td></td>
             <td class="number">
-                {{ shipping_price|currency:request}}
+                {{ shipping_costs.tax|currency:request}}
+            </td>
+            <td class="number">
+                {{ shipping_costs.price_gross|currency:request}}
             </td>
         </tr>
 

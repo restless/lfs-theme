@@ -16,7 +16,7 @@
     <h1 class="first-heading">{% trans 'Search results' %}</h1>
 
     <label for="search">{% trans 'Search' %}:</label>
-    <form action="{% url lfs_search %}"
+    <form action="{% url 'lfs_search' %}"
           class="search-results-form">
         <input id="search-results-input"
                type="text"
@@ -29,7 +29,11 @@
 
     <p class="search-results-description">
         {% trans 'You searched for' %} <span class="search-results-query">"{{ q }}"</span>.
-        {% blocktrans count total as counter %}1 product was found.{% plural %}{{ counter }} products were found.{% endblocktrans %}
+        {% if total == 0 %}
+            {% trans "No products found" %}
+        {% else %}
+            {% blocktrans count total as counter %}1 product was found.{% plural %}{{ counter }} products were found.{% endblocktrans %}
+        {% endif %}
     </p>
 
     {% if products %}
@@ -60,17 +64,7 @@
                         <a href="{{ product.get_absolute_url }}">
                             {{ product.get_name }}
                         </a>
-                        {% for property in product.get_variant_properties %}
-                            <div>
-                                {{ property.title }} : {{ property.value }} {{ property.unit|safe }}
-                            </div>
-                        {% endfor %}
-
-                        {% for property in product.get_displayed_properties %}
-                            <div>
-                                {{ property.title }} : {{ property.value }} {{ property.unit|safe }}
-                            </div>
-                        {% endfor %}
+                        {% include "lfs/catalog/products/_product_properties.html" with product=cart_item.product configurable_properties=cart_item.obj.get_properties %}
                     </td>
 
                     <td class="number">
