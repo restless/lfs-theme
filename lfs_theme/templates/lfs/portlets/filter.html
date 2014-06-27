@@ -130,16 +130,16 @@
                     </div>
 
                     <div class="{% if not manufacturer_filters.show_reset %}active{% endif %}">
-                         <a href="{% url 'lfs_reset_all_manufacturer_filter' category.slug %}">{% trans "All" %}</a>
+                         <a href="{% url 'lfs_reset_all_manufacturer_filter' category.pk %}">{% trans "All" %}</a>
                     </div>
 
                     {% for mfilter in manufacturer_filters.items %}
                         <div class="{% if mfilter.selected %}active{% endif %}">
-                            <a href="{% url 'lfs_set_manufacturer_filter' category.slug mfilter.obj.pk %}">
+                            <a href="{% url 'lfs_set_manufacturer_filter' category.pk mfilter.obj.pk %}">
                                 {{ mfilter.obj.name }} ({{ mfilter.obj.products_count }})
                             </a>
                             {% if mfilter.selected %}
-                                <a href="{% url 'lfs_reset_manufacturer_filter' category.slug mfilter.obj.pk %}">[x]</a>
+                                <a href="{% url 'lfs_reset_manufacturer_filter' category.pk mfilter.obj.pk %}">[x]</a>
                             {% endif %}
                         </div>
                     {% endfor %}
