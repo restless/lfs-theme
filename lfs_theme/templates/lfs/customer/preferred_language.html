@@ -14,7 +14,7 @@
 {% block content %}
     <h1>{% trans 'Preferred language' %}</h1>
     <span class="form-info">{% trans "Preferred language will be used within e-mail messages sent to you" %}</span>
-    <form action="{% url lfs_preferred_language %}"
+    <form action="{% url 'lfs_preferred_language' %}"
           method="post">
         {% csrf_token %}
         <table>
