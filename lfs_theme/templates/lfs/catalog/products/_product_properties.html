@@ -17,7 +17,7 @@
             <div class="configurable-property">
                 {{ property.title }}: {{ property.value }} {{ property.unit|safe }}
                 {% if property.obj.is_select_field and property.display_price %}
-                    ({{ property.price|currency:request}})
+                    ({{ property.price|currency}})
                 {% endif %}
             </div>
         {% endfor %}
